@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: smartweb
+server:
+  port: 8081
