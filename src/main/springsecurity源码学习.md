@@ -7,3 +7,35 @@
 
 * SecurityConfigurer 配置类用于配置SecurityBuilder构建的对象
 * AbstractConfiguredSecurityBuilder(继承自 AbstractSecurityBuilder,内部持有SecurityConfigurer集合) 定义了个doBuild模板方法 ，分别有beforeInit init beforeConfig config performBuild 由子类实现
+
+* Authentication、AuthenticationManager、AuthenticationProvider、AuthenticationManagerBuilder、ProviderManager、AuthenticationProvider
+* AuthenticationManagerBuilder继承自AbstractConfiguredSecurityBuilder，并实现了performBuild方法 返回一个ProviderManager。并为providerManager设置属性 如发布事件、providers、parent等
+* ProviderManager 类实现AuthenticationManager 接口 并实现Authentication authenticate(Authentication authentication)方法，在方法的实现中是调用内部持有的 List<AuthenticationProvider> providers，并遍历providers调用authenticate方法返回一个Authentication
+
+
+* UserDetailsService
+* DaoAuthenticationProvider
+* AbstractUserDetailsAuthenticationProvider
+* UsernamePasswordAuthenticationFilter
+* FormLoginConfigurer
+
+
+* SecurityContext
+* SecurityContextHolder
+* SecurityContextPersistenceFilter
+* SecurityContextHolderFilter
+* SecurityContextRepository
+* SecurityContextConfigurer
+
+
+* RememberMeAuthenticationFilter
+* RememberMeAuthenticationProvider
+* RememberMeAuthenticationToken
+* RememberMeConfigurer
+* RememberMeServices
+* SessionManagementConfigurer
+* SessionManagementFilter
+* SessionAuthenticationStrategy
+* SessionRegistry
+* SessionInformation
+* SessionInformation
