@@ -14,14 +14,14 @@ import org.springframework.stereotype.Component;
 public class IdentityHandler extends AbstractHandler {
     @Override
     public boolean handle(HttpServletRequest request) {
-        User user = UserContextHolder.getUser();
-        if (!user.getUsername().equals("admin")) {
-            return false;
-        }
-        // 认证成功，传递到下一个节点
-        if (next != null) {
-            return next.handle(request);
-        }
+//        User user = UserContextHolder.getUser();
+//        if (!user.getUsername().equals("admin")) {
+//            return false;
+//        }
+//        // 认证成功，传递到下一个节点
+//        if (next != null) {
+//            return next.handle(request);
+//        }
         return true;
     }
 }

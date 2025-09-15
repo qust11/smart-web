@@ -30,5 +30,7 @@ public class CommonResponse<T> {
         return create(500, desc, null);
     }
 
-
+    public static <T> CommonResponse<T> error(int code, String desc) {
+        return create(code, desc, null);
+    }
 }
