@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 /**
  * @author qushutao
  * @since 2025/9/12 13:59
@@ -26,7 +28,13 @@ public class ResponseUtil {
 
 
     public static void response(HttpServletResponse response, CommonResponse<?> commonResponse) {
-        objectMapper.acceptJsonFormatVisitor(response.getOutputStream(), null);
+        try {
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(objectMapper.writeValueAsString(commonResponse));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

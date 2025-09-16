@@ -22,12 +22,16 @@ public class CommonResponse<T> {
         return create(200, "success", data);
     }
 
-    public static <T> CommonResponse<T> success() {
-        return create(200, "success", null);
+    public static <T> CommonResponse<T> success(String message) {
+        return create(200, message, null);
     }
 
     public static <T> CommonResponse<T> error(String desc) {
         return create(500, desc, null);
+    }
+
+    public static <T> CommonResponse<T> error(int code, String desc) {
+        return create(code, desc, null);
     }
 
 
