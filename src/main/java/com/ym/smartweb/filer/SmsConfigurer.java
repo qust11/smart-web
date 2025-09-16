@@ -28,4 +28,8 @@ public class SmsConfigurer<H extends HttpSecurityBuilder<H>> extends
     public SmsConfigurer<H> loginProcessingUrl(String loginProcessingUrl) {
         return super.loginProcessingUrl(loginProcessingUrl);
     }
+
+    public SmsAuthenticationFilter getFilter(){
+        return smsAuthenticationFilter;
+    }
 }

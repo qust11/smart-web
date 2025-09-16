@@ -8,6 +8,7 @@ import com.ym.smartweb.encoder.CustomPasswordEncoder;
 import com.ym.smartweb.filer.SmsAuthenticationFilter;
 import com.ym.smartweb.filer.SmsAuthenticationProvider;
 import com.ym.smartweb.filer.SmsConfigurer;
+import jakarta.servlet.Filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * @author qushutao
@@ -34,14 +38,15 @@ public class SecurityConfig {
                         .successHandler(successHandler)
                         .failureHandler(failHandler))
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(c -> c.anyRequest().authenticated())
+                .authorizeHttpRequests(c -> c
+                        .anyRequest().authenticated())
                 .exceptionHandling(c -> c.authenticationEntryPoint(entryPoint));
 
         SmsConfigurer<HttpSecurity> httpSecuritySmsConfigurer = new SmsConfigurer<>();
         httpSecuritySmsConfigurer.loginProcessingUrl("/smsLogin").failureHandler(failHandler).successHandler(successHandler);
         http.apply(httpSecuritySmsConfigurer);
         http.authenticationProvider(new SmsAuthenticationProvider());
-        http.addFilterAfter(new SmsAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(httpSecuritySmsConfigurer.getFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
