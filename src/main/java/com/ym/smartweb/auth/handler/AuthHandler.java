@@ -14,15 +14,15 @@ import org.springframework.stereotype.Component;
 public class AuthHandler extends AbstractHandler {
     @Override
     public boolean handle(HttpServletRequest request) {
-        User user = UserContextHolder.getUser();
-        boolean admin = user.getRole().equals("admin");
-        if (!admin){
-            return false;
-        }
-        // 认证成功，传递到下一个节点
-        if (next != null) {
-            return next.handle(request);
-        }
+//        User user = UserContextHolder.getUser();
+//        boolean admin = user.getRole().equals("admin");
+//        if (!admin){
+//            return false;
+//        }
+//        // 认证成功，传递到下一个节点
+//        if (next != null) {
+//            return next.handle(request);
+//        }
         return true;
     }
 }

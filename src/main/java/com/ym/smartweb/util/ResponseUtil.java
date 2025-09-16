@@ -1,15 +1,18 @@
 package com.ym.smartweb.util;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ym.smartweb.pojo.CommonResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author qushutao
@@ -17,6 +20,7 @@ import java.io.IOException;
  **/
 @Component
 @AllArgsConstructor
+@Slf4j
 public class ResponseUtil {
 
     private static ObjectMapper objectMapper;
@@ -26,15 +30,13 @@ public class ResponseUtil {
         ResponseUtil.objectMapper = objectMapper;
     }
 
-
-    public static void response(HttpServletResponse response, CommonResponse<?> commonResponse) {
+    public static void response(HttpServletResponse response, CommonResponse<?> commonResponse)  {
         try {
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("application/json;charset=UTF-8");
+            response.setContentType("application/json;charset=utf-8");
+            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
             response.getWriter().write(objectMapper.writeValueAsString(commonResponse));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("response error");
         }
-
     }
 }
